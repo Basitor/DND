@@ -84,6 +84,7 @@ class Main_UI(QMainWindow):
 
         self.connection.close()
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Main_UI()

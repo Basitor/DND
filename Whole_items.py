@@ -31,7 +31,7 @@ class Main_UI(QMainWindow):
         items = self.cursor.fetchall()
 
         # Getting the ID and name of each hero
-        self.cursor.execute("""SELECT * FROM Hero""")
+        self.cursor.execute("""SELECT hero_number, hero_name FROM Hero""")
         for i in self.cursor.fetchall():
             ID.append(i[0])
             Name.append(i[1])
