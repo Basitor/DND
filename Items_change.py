@@ -82,7 +82,6 @@ class Main_UI(QMainWindow):
         list_of_heroes = cursor.fetchall()
         for i in list_of_heroes:
             hero_list.append(i[0])
-        hero_list.append('***NEW HERO***')
         hero_list.append('No holder')
 
         # Getting the hero name from user
@@ -105,27 +104,6 @@ class Main_UI(QMainWindow):
             text, ok = QInputDialog.getInt(self, 'Input Dialog', '{}:'.format(i))
             if ok:
                 item_stats.append(str(text))
-
-        # If this stat belongs to the new hero
-        if self.heroName == '***NEW HERO***':
-            while True:
-                text, ok = QInputDialog.getText(self, 'Input Dialog', 'Enter hero name (the name should be new):')
-                if ok and text not in hero_list:
-                    self.heroName = text
-
-                    # Commiting to the DB and closing the connection
-                    cursor.execute("""INSERT INTO Hero (hero_number, hero_name)
-                                    VALUES (NULL, "{}")""".format(self.heroName))
-                    connection.commit()
-                    connection.close()
-
-                    # Connect to the SQL again
-                    connection = sqlite3.connect("company.db")
-                    cursor = connection.cursor()
-                    break
-                else:
-                    QMessageBox.question(self, 'Message', "Hero name should be unique", QMessageBox.Yes | QMessageBox.Yes)
-                    continue
 
         # Getting the ID of selected hero
         if self.heroName == 'No holder':
